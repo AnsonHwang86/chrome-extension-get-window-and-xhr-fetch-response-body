@@ -1,3 +1,6 @@
+![image](https://user-images.githubusercontent.com/16233397/180920236-7b06118e-db20-427a-b57e-584158c05217.png)
+
+
 ## Here is example show how to get inspected page's `window` and response body(not request body).
 
 Using injected js to get `window`, and pass it to content_script.js with window.postMessage, but you need to use a library to stringify the window firstly. Due to window may contain recursive object, it will fail the JSON.stringify. So I use library https://github.com/Canop/JSON.prune here.
@@ -71,7 +74,7 @@ function allEventHandler(debuggeeId, message, params) {
 
 ### 3. using injected js to change prototype of XML and fetch of inspected page (recommend), this example will take this solution
 
-### 4. be notice that the chrome.webRequest api will only intercepted the request body instead of response body.
+### * be notice that the chrome.webRequest api will only intercepted the request body instead of response body.
 
 
 ## Reference
