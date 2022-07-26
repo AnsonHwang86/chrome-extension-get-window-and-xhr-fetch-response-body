@@ -1,3 +1,6 @@
+![Screenshot_20220726115655](https://user-images.githubusercontent.com/16233397/180919921-e9bf2444-6577-4ebf-a444-7ce5659e4535.png)
+
+
 ## Here is example show how to get inspected page's `window` and response body(not request body).
 
 Using injected js to get `window`, and pass it to content_script.js with window.postMessage, but you need to use a library to stringify the window firstly. Due to window may contain recursive object, it will fail the JSON.stringify. So I use library https://github.com/Canop/JSON.prune here.
