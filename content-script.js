@@ -30,12 +30,14 @@ window.addEventListener('message', function(e) {
     switch (e.origin){
     case 'https://detail.1688.com':
         if(!e.data.customEvent) break;
+        console.log(e.data);
         JSON.parse(parentWindow.__GLOBAL_DATA.offerDomain).tradeModel.skuMap.map(item=>{
             console.log(item.specAttrs)
         })
         break;
     case 'https://sellercentral.amazon.com':
         if(!e.data.customEvent) break;
+        console.log(e.data);
         console.log(JSON.stringify(parentWindow));
         break;
     default:

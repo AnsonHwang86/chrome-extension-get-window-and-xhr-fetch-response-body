@@ -1,21 +1,20 @@
-// postMessage window Object to content-script.js listener;
-
-// the thrid library imported
-
-// JSON.prune : a function to stringify any object without overflow
-// two additional optional parameters :
-//   - the maximal depth (default : 6)
-//   - the maximal length of arrays (default : 50)
-// You can also pass an "options" object.
-// examples :
-//   var json = JSON.prune(window)
-//   var arr = Array.apply(0,Array(1000)); var json = JSON.prune(arr, 4, 20)
-//   var json = JSON.prune(window.location, {inheritedProperties:true})
-// Web site : http://dystroy.org/JSON.prune/
-// JSON.prune on github : https://github.com/Canop/JSON.prune
-// This was discussed here : http://stackoverflow.com/q/13861254/263525
-// The code is based on Douglas Crockford's code : https://github.com/douglascrockford/JSON-js/blob/master/json2.js
-// No effort was done to support old browsers. JSON.prune will fail on IE8.
+/** 
+The third library imported
+JSON.prune : a function to stringify any object without overflow
+two additional optional parameters :
+  - the maximal depth (default : 6)
+  - the maximal length of arrays (default : 50)
+You can also pass an "options" object.
+examples :
+  var json = JSON.prune(window)
+  var arr = Array.apply(0,Array(1000)); var json = JSON.prune(arr, 4, 20)
+  var json = JSON.prune(window.location, {inheritedProperties:true})
+Web site : http://dystroy.org/JSON.prune/
+JSON.prune on github : https://github.com/Canop/JSON.prune
+This was discussed here : http://stackoverflow.com/q/13861254/263525
+The code is based on Douglas Crockford's code : https://github.com/douglascrockford/JSON-js/blob/master/json2.js
+No effort was done to support old browsers. JSON.prune will fail on IE8.
+**/
 (function () {
     'use strict';
 
@@ -166,26 +165,5 @@
     if (typeof module !== "undefined") module.exports = prune;
     else JSON.prune = prune;
 }());
-
-
-//Avoiding recursivity problem :
-// function stringifyWindow (obj) { 
-//     document.querySelectorAll('iframe').forEach(iframe => iframe.remove());
-//     var seen = [];
-//     return JSON.stringify(obj, function(key, value) {
-//         if (typeof value === 'object' && value !== null && 'toISOString' in value) {
-//           return value.toISOString();
-//         }
-//         else if (typeof value === 'object' && value !== null) {
-//             if (seen.indexOf(value) !== -1) return;
-//             else seen.push(value);
-//         }
-//         return value;
-//     });
-//     seen = null;
-// }
-
-// window.postMessage({window:stringifyWindow(window), customEvent: true});
-
 
 window.postMessage({window:JSON.parse(JSON.prune(window)), customEvent: true});
