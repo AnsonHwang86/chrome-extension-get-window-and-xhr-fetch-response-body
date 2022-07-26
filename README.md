@@ -71,7 +71,7 @@ function allEventHandler(debuggeeId, message, params) {
 
 ### 3. using injected js to change prototype of XML and fetch of inspected page (recommend), this example will take this solution
 
-### 4. be notice that the chrome.webRequest api will only intercepted the request body instead of response body.
+### * be notice that the chrome.webRequest api will only intercepted the request body instead of response body.
 
 
 ## Reference
