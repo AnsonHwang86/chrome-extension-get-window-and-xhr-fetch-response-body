@@ -187,5 +187,5 @@
 
 // window.postMessage({window:stringifyWindow(window), customEvent: true});
 
-window.postMessage({window:JSON.parse(JSON.prune(window)), customEvent: true});
 
+window.postMessage({window:JSON.parse(JSON.prune(window)), customEvent: true});

@@ -1,12 +1,29 @@
 let parentWindow; 
 
-// function injectScript1(file_path, tag) {
-//     var node = document.getElementsByTagName(tag)[0];
-//     var script = document.createElement('script');
-//     script.setAttribute('type', 'text/javascript');
-//     script.setAttribute('src', file_path);
-//     node.appendChild(script);}
-// injectScript1(chrome.runtime.getURL('inject.js'), 'body');
+// inject script to get window object
+function injectScript(file_path, tag) {
+    var node = document.getElementsByTagName(tag)[0];
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', file_path);
+    node.appendChild(script);
+}
+
+// run after window is loaded
+addEventListener('load', (event) => { injectScript(chrome.runtime.getURL('inject.js'), 'body'); });
+
+
+/**
+ * inject following script to get xhr or fetch response body
+ * added "web_accessible_resources": ["interceptXHRorFETCH.js"] to manifest.json
+ */
+var s = document.createElement('script');
+s.src = chrome.runtime.getURL('interceptXHRorFETCH.js');
+s.onload = function() {
+    this.remove();
+};
+(document.head || document.documentElement).appendChild(s);
+
 
 window.addEventListener('message', function(e) {
     parentWindow = e.data.window||null;
@@ -26,33 +43,14 @@ window.addEventListener('message', function(e) {
     }
 })
 
+// do sth you want to do with data intercepted
+// function save1688DataToNeo4j (data, apiUrl) {
 
-function save1688DataToNeo4j (data, apiUrl) {
+// }
 
-}
-
-function dataMapper (data, schema) {
-    schema["listing.sellingProduct.productName.0.text"]             = jsonpath(data.listing.sellingProduct.product)
-    schema["listing.sellingProduct.productName.0.languageTagCode"]  = jsonpath(data.listing.sellingProduct.product)
-    schema["listing.sellingProduct.productName.1.text"]             = jsonpath(data.listing.sellingProduct.product)
-    schema["listing.sellingProduct.productName.1.text"]             = jsonpath(data.listing.sellingProduct.product)
-}
-
-chrome.runtime.onMessage.addListener(
-  (message, sendResponse)=>{
-    console.log(message)
-  }
-)
-
-
-
-/**
- * code in inject.js
- * added "web_accessible_resources": ["injected.js"] to manifest.json
- */
-var s = document.createElement('script');
-s.src = chrome.runtime.getURL('interceptData.js');
-s.onload = function() {
-    this.remove();
-};
-(document.head || document.documentElement).appendChild(s);
+// function dataMapper (data, schema) {
+//     schema["listing.sellingProduct.productName.0.text"]             = jsonpath(data.listing.sellingProduct.product)
+//     schema["listing.sellingProduct.productName.0.languageTagCode"]  = jsonpath(data.listing.sellingProduct.product)
+//     schema["listing.sellingProduct.productName.1.text"]             = jsonpath(data.listing.sellingProduct.product)
+//     schema["listing.sellingProduct.productName.1.text"]             = jsonpath(data.listing.sellingProduct.product)
+// }

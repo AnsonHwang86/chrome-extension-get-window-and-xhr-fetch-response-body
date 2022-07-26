@@ -7,12 +7,6 @@
     "service_worker": "background.js"
   },
   "content_scripts": [
-   // {
-   //  "matches": ["https://*.amazon.com/*", "https://*.1688.com/*"],
-   //  "js": ["interceptData.js"],
-   //  "run_at": "document_start"
-    
-   // },
    {
      "matches": ["https://*.amazon.com/*", "https://*.1688.com/*"],
      "css": ["my-styles.css"],
@@ -22,7 +16,7 @@
  ],
  "web_accessible_resources": [
     {
-     "resources": ["inject.js","interceptData.js"],
+     "resources": ["inject.js","interceptXHRorFETCH.js"],
      "matches": ["https://*.amazon.com/*", "https://*.1688.com/*"]
    }
   ],
