@@ -1,4 +1,4 @@
-![Screenshot_20220726115655](https://user-images.githubusercontent.com/16233397/180919921-e9bf2444-6577-4ebf-a444-7ce5659e4535.png)
+![image](https://user-images.githubusercontent.com/16233397/180920236-7b06118e-db20-427a-b57e-584158c05217.png)
 
 
 ## Here is example show how to get inspected page's `window` and response body(not request body).
