@@ -1,8 +1,0 @@
-[{
-	"http.*?:\\\/\\\/sellercentral.*?\\.amazon\\.com\\\/": [
-		"http.*?:\\\/\\\/sellercentral.*?\\.amazon\\.com\\\/orders-api\\\/search\\?limit"
-	]
-},
-{
-
-}]
