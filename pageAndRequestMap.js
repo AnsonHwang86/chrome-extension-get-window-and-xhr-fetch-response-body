@@ -5,7 +5,7 @@ const pageAndRequestMapArray = [
 		"\\\/orders-api\\\/search\\?limit"
 	],
 	handler: function (data, doc, win){
-		console.log(data, doc)
+		console.log(data, doc);alert(JSON.stringify(data));
 	}
 },
 {
@@ -14,6 +14,6 @@ const pageAndRequestMapArray = [
 		"https:\/\/turbo-meta\.insights\.1688\.com\/meta\.json"
 	],
 	handler: function (data, doc, win){
-		console.log(data, doc,1688)
+		console.log(data, doc,1688);alert(JSON.stringify(data));
 	}
 }]

@@ -27,11 +27,12 @@ window.addEventListener('message', function(e) {
       return item.pageUrl!==undefined&&e.currentTarget.location.href.match(item.pageUrl);
     });
     if(!pageUrls.length||!e.data.customEvent) return;
-    
+    // return window
+    if(e.data.window) {pageUrls[0].handler(e.data, document); return};
     pageUrls[0].requestUrl.map(item=>{
       if(e.data.requestUrl.match(item)) pageUrls[0].handler(e.data, document);
     });
-    console.log(e)
+    // console.log(e)
     // parentWindow = e.data.window||null;
     // console.log(e.currentTarget.location.href);
     // switch (e.currentTarget.location.href){

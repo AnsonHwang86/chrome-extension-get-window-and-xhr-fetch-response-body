@@ -16,7 +16,6 @@ const passMessageIfInMap = (requestUrl , data, urlMapArray) => {
     window.XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
         this.addEventListener('load', function() {
           //siteAndRequestMapArray from siteAndRequestMap.js
-          console.log("this.responseText:",222222)
           passMessageIfInMap(url, this.responseText, pageAndRequestMapArray); 
      });
      return oldXHROpen.apply(this, arguments);
@@ -35,7 +34,7 @@ const passMessageIfInMap = (requestUrl , data, urlMapArray) => {
           .clone()
           .json()
           .then((data) => {
-            console.log("data:",data)
+            // console.log("data:",data)
             //siteAndRequestMapArray from siteAndRequestMap.js
             passMessageIfInMap(resource, data, pageAndRequestMapArray);           
             // return { ...data, title: `Intercepted: ${data.title}` }
