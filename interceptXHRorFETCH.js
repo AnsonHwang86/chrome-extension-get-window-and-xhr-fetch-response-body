@@ -1,14 +1,14 @@
 let currentLocation = document.location.href;
 
-const passMessageIfInMap = (url, urlMapArray, data) => {
+const passMessageIfInMap = (requestUrl , data, urlMapArray) => {
     urlMapArray = urlMapArray.filter(item=>{
-      return Object.keys(item)[0]!==undefined&&currentLocation.match(Object.keys(item)[0]);
-    })
+      return item.pageUrl!==undefined&&currentLocation.match(item.pageUrl);
+    });
     if(!urlMapArray.length) return;
-    urlMapArray[0][Object.keys(urlMapArray[0])[0]].map(item=>{
-      // only postMessage when url is in map array
-      if(url.match(item)) window.postMessage({data, customEvent: true});
-    }) 
+    urlMapArray[0].requestUrl.map(item=>{
+      // only postMessage when requestUrl is in map array
+      if(requestUrl.match(item)) window.postMessage({data, customEvent: true, requestUrl:requestUrl});
+    })
 }
 
 (async function (){
@@ -16,7 +16,8 @@ const passMessageIfInMap = (url, urlMapArray, data) => {
     window.XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
         this.addEventListener('load', function() {
           //siteAndRequestMapArray from siteAndRequestMap.js
-          passMessageIfInMap(url, siteAndRequestMapArray, this.resposneText); 
+          console.log("this.responseText:",222222)
+          passMessageIfInMap(url, this.responseText, pageAndRequestMapArray); 
      });
      return oldXHROpen.apply(this, arguments);
     }
@@ -34,8 +35,9 @@ const passMessageIfInMap = (url, urlMapArray, data) => {
           .clone()
           .json()
           .then((data) => {
+            console.log("data:",data)
             //siteAndRequestMapArray from siteAndRequestMap.js
-            passMessageIfInMap(resource, siteAndRequestMapArray, data);           
+            passMessageIfInMap(resource, data, pageAndRequestMapArray);           
             // return { ...data, title: `Intercepted: ${data.title}` }
             return data;
         });

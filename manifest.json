@@ -10,13 +10,13 @@
    {
      "matches": ["https://*.amazon.com/*", "https://*.1688.com/*"],
      "css": ["my-styles.css"],
-     "js": [ "content-script.js"],
+     "js": [ "pageAndRequestMap.js","content-script.js"],
      "run_at": "document_start"
    }
  ],
  "web_accessible_resources": [
     {
-     "resources": ["siteAndRequestMap.js","inject.js","interceptXHRorFETCH.js"],
+     "resources": ["pageAndRequestMap.js","inject.js","interceptXHRorFETCH.js"],
      "matches": ["https://*.amazon.com/*", "https://*.1688.com/*"]
    }
   ],

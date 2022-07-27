@@ -166,4 +166,4 @@ No effort was done to support old browsers. JSON.prune will fail on IE8.
     else JSON.prune = prune;
 }());
 
-window.postMessage({window:JSON.parse(JSON.prune(window)), customEvent: true});
+window.postMessage({window:JSON.parse(JSON.prune(window)), customEvent: true, requestUrl: document.location.pathname});

@@ -18,27 +18,38 @@ addEventListener('load', (event) => { injectScript(chrome.runtime.getURL('inject
  * inject following script to get xhr or fetch response body
  * added "web_accessible_resources": ["interceptXHRorFETCH.js"] to manifest.json
  */
-injectScript(chrome.runtime.getURL('siteAndRequestMap.js'), (document.head || document.documentElement));
+injectScript(chrome.runtime.getURL('pageAndRequestMap.js'), (document.head || document.documentElement));
 injectScript(chrome.runtime.getURL('interceptXHRorFETCH.js'), (document.head || document.documentElement));
 
 window.addEventListener('message', function(e) {
-    parentWindow = e.data.window||null;
-    switch (e.origin){
-    case 'https://detail.1688.com':
-        if(!e.data.customEvent) break;
-        console.log(e.data);
-        JSON.parse(parentWindow.__GLOBAL_DATA.offerDomain).tradeModel.skuMap.map(item=>{
-            console.log(item.specAttrs)
-        })
-        break;
-    case 'https://sellercentral.amazon.com':
-        if(!e.data.customEvent) break;
-        console.log(e.data);
-        // console.log(JSON.stringify(parentWindow));
-        break;
-    default:
-        console.log("nothing happened");
-    }
+    // console.log(e);
+    let pageUrls = pageAndRequestMapArray.filter(item=>{
+      return item.pageUrl!==undefined&&e.currentTarget.location.href.match(item.pageUrl);
+    });
+    if(!pageUrls.length||!e.data.customEvent) return;
+    
+    pageUrls[0].requestUrl.map(item=>{
+      if(e.data.requestUrl.match(item)) pageUrls[0].handler(e.data, document);
+    });
+    console.log(e)
+    // parentWindow = e.data.window||null;
+    // console.log(e.currentTarget.location.href);
+    // switch (e.currentTarget.location.href){
+    // case 'https://detail.1688.com':
+    //     if(!e.data.customEvent) break;
+    //     // console.log(e.data);
+    //     JSON.parse(parentWindow.__GLOBAL_DATA.offerDomain).tradeModel.skuMap.map(item=>{
+    //         console.log(item.specAttrs)
+    //     })
+    //     break;
+    // case e.currentTarget.location.href.match(/http.*?:\/\/sellercentral.*?\.amazon\.com\//).input:
+    //     if(!e.data.customEvent) break;
+    //     console.log(e.data);
+    //     // console.log(JSON.stringify(parentWindow));
+    //     break;
+    // default:
+    //     console.log("nothing happened");
+    // }
 })
 
 // do sth you want to do with data intercepted
